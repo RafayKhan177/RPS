@@ -1,0 +1,74 @@
+import random
+
+def GameWin(Alexa, You):
+    if Alexa == You:
+        return None
+
+    elif Alexa == 'R':
+        if You == 'P':
+            return True
+        elif You == 'S':
+            return False
+
+    elif Alexa == 'P':
+        if You == 'S':
+            return True
+        elif You == 'R':
+            return False
+
+    elif Alexa == 'S':
+        if You == 'R':
+            return True
+        elif You == 'P':
+            return False
+
+
+username = input("\n\nWrite Your Name : ").capitalize()
+
+
+with open(f"User & Score/{username}", 'w+') as creatUser:
+    creatUser.write("0")
+with open(f"User & Score/{username}", 'r') as readScore:
+    dataScore = int(readScore.read())
+
+
+print(f"Alexa VS {username} \nYour Total Score Is {dataScore}\n\t\tGame Started\nAlexa Turn :\n\t Rock(R) Paper(P) Scissor(S)",)
+
+RandomNo = random.randint(1, 3)
+if RandomNo == 1:
+    Alexa = 'R'
+elif RandomNo == 2:
+    Alexa = 'P'
+elif RandomNo == 3:
+    Alexa = 'S'  
+
+You = input(f"{username} Turn :\n\t Rock(R) Paper(P) Scissor(S)\n").capitalize()
+print (f"---Alexa Chosed ({Alexa}) ^_____^ {username} You Chosed ({You})---\n")
+
+a = GameWin (Alexa, You)
+if a == None:
+    print(f"---{username} Game Tie ✍️ ( ◔ ◡ ◔ )---\n")
+elif a == True:
+    print(f"---{username} You Won  ( ● ' ◡ ' ● ) CONGRATULATIONS---\n")
+elif a == False:
+    print (f"--- {username} You lose  ヾ ( ≧ へ ≦ ) 〃 ---\n")
+
+if a == True:
+    scorePlus = dataScore + 10
+    scorePlusF = str(scorePlus)
+    with open(f"User & Score/{username}", 'w+') as f:
+        f.write(scorePlusF)
+    print(f"Your New Score is {scorePlusF} ( ﾉ * ･ ω ･ ) ﾉ\n")
+    print("Your Score Increased By (10)")
+    print(f"{username} Your Score Will Automatically Save  ( ► __ ◄ )\n\n")
+elif a == False:
+    scoreMinus = dataScore - 10
+    scoreMinusF = str(scoreMinus)
+    with open(f"User & Score/{username}", 'w+') as f:
+        f.write(scoreMinusF)
+    print(f"Your New Score is {scoreMinusF} ( ﾉ * ･ ω ･ ) ﾉ\n")
+    print("Your Score Decresed (10)")
+    print(f"{username} Your Score Will Automatically Save  ( ► __ ◄ )\n\n")
+else:
+    print("Score Not Changed")
+    print(f"{username} Your Score Will Automatically Save  ( ► __ ◄ )\n\n")
